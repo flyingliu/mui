@@ -47,10 +47,11 @@ require(mods, function( Vue, VueRouter, mui, list,detail) {
     Vue.use(AlloyFingerVue);
     const routes = [
         { path: '/', component: list },        
-        { path: '/detail', component: detail },
+        { path: '/detail/12', component: detail },
     ]
     window.router = new VueRouter({
         routes
+
     })
 
 
@@ -64,7 +65,26 @@ require(mods, function( Vue, VueRouter, mui, list,detail) {
 
 
     const app = new Vue({
-        router
+        router,
+        data:{
+            msg:"flying",
+            transitionName: 'slide-right' 
+        },
+        template:`<div id="app">
+            <div id="pano">{{msg}}</div>
+            <transition :name="transitionName" mode="out-in">
+                <router-view class="Router"></router-view>
+            </transition>
+        </div>`,
+        watch: {
+            '$route'(to, from) {
+                const toDepth = to.path.split('/').length
+                const fromDepth = from.path.split('/').length
+                console.log(toDepth,fromDepth);
+                this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+                console.log(this.transitionName);
+            }
+        }
     }).$mount('#app')
 
 })

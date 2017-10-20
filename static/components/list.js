@@ -2,7 +2,7 @@ define([
     'vue',
     'mui',
     'AlloyFingerVue'
-], function (Vue, mui,AlloyFingerVue) {
+], function (Vue, mui, AlloyFingerVue) {
     'use strict';
     let myscroll;
     let zoomScroll;
@@ -115,13 +115,14 @@ define([
         data: () => {
             return {
                 list: [],
-                isActive:false
+                transitionName: 'slide-left',
+                isActive: false
             }
         },
         methods: {
-            tap() { 
+            tap() {
                 this.isActive = !this.isActive;
-                if(this.isActive) {
+                if (this.isActive) {
                     this.slider.slider({
                         interval: 5000
                     });
@@ -130,7 +131,8 @@ define([
                         interval: 0
                     });
                 }
-                console.log('onTap'); },
+                console.log('onTap');
+            },
             link(id) {
                 router.push({
                     name: 'topic',
@@ -153,13 +155,13 @@ define([
                 // interval: 5000
             });
 
-            mui.ajax('http://jsonplaceholder.typicode.com/posts',{
-                data:{
-                    category:'news'
+            mui.ajax('http://jsonplaceholder.typicode.com/posts', {
+                data: {
+                    category: 'news'
                 },
-                dataType:'json',//服务器返回json格式数据
-                type:'get',//HTTP请求类型
-                success:function(data){
+                dataType: 'json', //服务器返回json格式数据
+                type: 'get', //HTTP请求类型
+                success: function (data) {
                     console.log(data)
                 }
             });
